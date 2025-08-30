@@ -39,11 +39,10 @@ try:
 
         records = cursor.fetchall()
         print("Total de registros: ", cursor.rowcount)
+        grid = PrettyTable(['ID', 'Nome', 'Endereço', 'Tipo de acessibilidade'])
         for row in records:
-            print("id = ", row[0], )
-            print("nome = ", row[1], "\n")
-            print("endereco = ", row[2], "\n")
-            print("tipo = ", row[3], "\n")
+            grid.add_row([row[0], row[1], row[2], row[3]])
+        print(grid)
 
 
     def selectbytipo():
@@ -55,12 +54,10 @@ try:
         cursor.execute(mySql_select_query)  # Executa o comando SQL
         records = cursor.fetchall()
         print("Total de registros: ", cursor.rowcount)
+        grid = PrettyTable(['ID', 'Nome', 'Endereço', 'Tipo de acessibilidade'])
         for row in records:
-            print("id = ", row[0], )
-            print("nome = ", row[1], "\n")
-            print("endereco = ", row[2], "\n")
-            print("tipo = ", row[3], "\n")
-
+            grid.add_row([row[0], row[1], row[2], row[3]])
+        print(grid)
         # Mostra o número de registros inseridos
         print(cursor.rowcount, "Selecionado(s) com sucesso")
         cursor.close()  # Fecha o cursor
@@ -77,16 +74,26 @@ try:
             return False
         else:
             print('Opção inválida!')
+        return True
 
-
-    while True:
-        opc = int(input("""Ecolha uma opção: 
-                1 - Cadastrar novo local
-                2 - Listar locais
-                3 - Buscar por tipo de acessibilidade
-                4 - Sair"""))
-        if (opcao(opc) == False):
-            break
+    print ('Administração de Locais Acessíveis')
+    x = input('''Deseja iniciar o programa e visualizar suas opções?
+    Digite 1 para SIM ou qualquer tecla para sair: ''')
+    print ('-'*35)
+    if x == '1':
+        selectall()
+        while True:
+            opc = int(input("""Ecolha uma opção: 
+            1 - Cadastrar novo local
+            2 - Listar locais
+            3 - Buscar por tipo de acessibilidade
+            4 - Sair
+            
+            Digite aqui a opção: """))
+            if (opcao(opc) == False):
+                break
+    else:
+        print('O usuário não quis executar o programa')
 
 
 except Error as e:
